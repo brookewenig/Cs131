@@ -1,0 +1,50 @@
+Implementation of filter_blind_alleys:
+
+I approached this problem with a bottom up recursive solution. I chose this 
+approach because to me, it was much easier to find all the terminal symbols, 
+and then recursively go up to find non-terminals which led to terminal symbols. 
+If I were to do a top-down approach where I go throughout the list trying to 
+see if a rule will terminate, then I would face many problems such as detecting 
+if I am in an infinite loop and when to stop cycling. 
+
+In my opinion, this approach is the best approach to solve this problem. I do 
+not see any weaknesses of this approach when compared to the top-down approach, 
+except that it was not obvious initially. I initially started attacking this 
+problem by starting at the top of the list, and seeing what was on the right 
+hand side of the rule. If it were a terminal, then great, but otherwise, I 
+would store that non-terminal symbol and then repeat the process again. I ran 
+into the trouble of when do I kick out of the recursive calls and it become 
+very difficult to implement. After attending Li Zhang's discussion, I decided 
+to use the bottom-up approach.
+
+In my implementation, filter_blind_alleys accepts a tuple, which it then 
+decomposes into the start symbol and all of the rules. It passes on the rules 
+to the helper function filter_rules which in turn calls other helper functions 
+to determine if a rule leads to a terminal symbol. 
+
+filter_blind_alleys has numerous helper functions, detailed below:
+
+let extract_lhs (lhs,rhs): This retrieves the left hand side of a rule
+
+let extract_rhs (lhs,rhs): This retrieves the right hand side of a rule
+
+let is_terminal x: This determines whether the right hand side of a rule is a 
+terminal or non-terminal symbol
+
+let remove_symbol: This removes the non-terminal character "N" from the 
+beginning of the RHS of a rule before adding it to the list of symbols we have 
+encountered
+
+let exists_in_parent p r: This checks to see if the rule that we are currently 
+evaluating is already in the parent (i.e. we visited this rule already)
+
+let rec check_rule g p r: This checks to see if the RHS of a rule is a terminal 
+and if it is, move on. Otherwise, look at the list of non-terminal symbols we 
+have already encountered (in parent) and if it is not there, then recursively 
+call check_rule on this new non-terminal symbol.
+
+let filter_rules g: If the RHS of a rule is empty, it is valid and move on, 
+otherwise call check_rule on it
+
+In summary, the function filter_blind_alleys itself does very little work (only 
+calls filter_rules), and the bulk of the work lies in check_rule. 

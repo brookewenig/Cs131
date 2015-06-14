@@ -1,0 +1,42 @@
+#!/bin/sh
+
+echo -e "Null\n"
+java UnsafeMemory Null 4 1000000 6 5 6 3 0 3
+java UnsafeMemory Null 8 1000000 6 5 6 3 0 3
+java UnsafeMemory Null 16 1000000 6 5 6 3 0 3
+java UnsafeMemory Null 8 1000 6 5 6 3 0 3
+
+echo -e "Synchronized\n"
+java UnsafeMemory Synchronized 4 1000000 6 5 6 3 0 3
+java UnsafeMemory Synchronized 8 1000000 6 5 6 3 0 3
+java UnsafeMemory Synchronized 16 1000000 6 5 6 3 0 3
+java UnsafeMemory Synchronized 8 1000 6 5 6 3 0 3
+
+echo -e "Unsynchronized\n"
+java UnsafeMemory Unsynchronized 1 1000000 6 5 6 3 0 3
+#java UnsafeMemory Unsynchronized 8 1000 6 5 6 3 0 3
+#java UnsafeMemory Unsynchronized 16 10000 6 5 6 3 0 3
+#java UnsafeMemory Unsynchronized 8 1000 6 5 6 3 0 3
+
+echo -e "GetNSet\n"
+#java UnsafeMemory GetNSet 4 10000 6 5 6 3 0 3
+#java UnsafeMemory GetNSet 8 1000000 6 5 6 3 0 3
+#java UnsafeMemory GetNSet 16 1000000 6 5 6 3 0 3
+#java UnsafeMemory GetNSet 8 10000 6 5 6 3 0 3
+
+echo -e "Better Safe\n"
+java UnsafeMemory BetterSafe 4 100000 6 5 6 3 0 3
+java UnsafeMemory BetterSafe 8 1000000 6 5 6 3 0 3
+java UnsafeMemory BetterSafe 16 1000000 6 5 6 3 0 3
+java UnsafeMemory BetterSafe 8 1000 6 5 6 3 0 3
+
+echo -e "Better Sorry\n"
+java UnsafeMemory BetterSorry 4 100000 6 0 0 1 0 3
+java UnsafeMemory BetterSorry 8 1000000 6 5 6 3 0 3
+java UnsafeMemory BetterSorry 16 10000000 6 5 6 3 0 3
+java UnsafeMemory BetterSorry 1 10 6 5 6 3 0 3
+
+
+
+
+

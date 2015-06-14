@@ -1,0 +1,40 @@
+I approached parse_prefix by creating multiple subroutines, namely rec_vert and 
+rec_horiz which mutually recurse in order to traverse the rules linearly and 
+horizontally. 
+
+is_terminal: Checks if the item is a terminal character
+get_terminal: If the item is a terminal character, return the item minus the 
+terminal
+get_nt_rules: Gets the list of non_terminal rules
+
+rec_vert: This function, in conjunction with rec_horiz does the bulk of the 
+computing of this program. rec_vert and rec_horiz mutually recurse, that is, 
+rec_vert calls rec_horiz, and rec_horiz calls rec_vert. rec_vert traverses 
+through the list of rules linearly, and calls rec_horiz to evaluate the 
+alternative list.
+
+rec_horiz: The counterpart to rec_vert. This function traverses the alternative 
+list, trying to match terminal characters to the fragment, but if it is a 
+nonterminal, then it calls rec_vert in order to get the subrule of that 
+nonterminal it is currently at.
+
+eval_rec_vert: Calls rec_vert and gets the return value
+ret_frag: Removes the 3rd param from the return result of eval_rec_vert 
+parse_prefix: This function gets the result of traversing the rules, and 
+depending on the acceptor passed in as an argument, will either return the path 
+it found (if it exists), None (no path exists), or modifies the fragment so that
+it finds a path for a subset of the original fragment.
+
+I solved the problem in this manner because to me, it seemed natural to 
+concurrently traverse the rules in a linear and horizontal manner. I didn't 
+seriously compare too many other approaches (I didn't know how to implement them
+ using OCaml), so I went with this approach. 
+
+However, my approach might not be the most optimal. For example, it falls apart 
+after multiple levels of recursion, such as the case in test case 4. The 
+function works for about the first half, but then kicks out and says it couldn't
+ find a match for the other half (thus shortening the fragment to reflect this).
+
+Some weaknesses of my solution: My solution does not work well with cases that 
+involve ery deep levels of recursion (tried debugging, but eventually gave up on
+ test case 4). 
